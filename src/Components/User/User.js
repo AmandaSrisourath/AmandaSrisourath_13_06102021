@@ -1,29 +1,12 @@
 import React from "react";
-import Header from "./Header";
-import Footer from "./Footer";
-import { Link } from "react-router-dom";
+import UserHeader from "./UserHeader";
+import Footer from "../Footer";
 
 class User extends React.Component {
     render() {
         return (
             <div>
-                <nav className="main-nav">
-                    <Header />
-                    <div>
-                        <Link to={`/user`}>
-                            <div className="main-nav-item">
-                                <i className="fa fa-user-circle"></i>
-                                <p>Tony</p>
-                            </div>
-                        </Link>
-                        <Link to={`/home`}>
-                            <div className="main-nav-item">
-                                <i className="fa fa-user-circle"></i>
-                                <p>Sign Out</p>
-                            </div>
-                        </Link>
-                    </div>
-                </nav>
+                <UserHeader />
                 <main className="main bg-dark">
                     <div className="header">
                         <h1>Welcome back<br/>Tony Jarvis!</h1>
