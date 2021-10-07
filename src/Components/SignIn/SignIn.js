@@ -1,7 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import Header from "../Header";
 import Footer from "../Footer";
-import { Link } from "react-router-dom";
 
 class SignIn extends React.Component {
     render() {
@@ -10,7 +12,7 @@ class SignIn extends React.Component {
                 <Header />
                 <main className="main bg-dark">
                     <section className="sign-in-content">
-                        <i className="fa fa-user-circle sign-in-icon"></i>
+                        <FontAwesomeIcon icon={faUserCircle} className="sign-in-icon"/>
                         <h1>Sign In</h1>
                         <form>
                             <div className="input-wrapper">
