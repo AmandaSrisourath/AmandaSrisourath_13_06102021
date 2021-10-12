@@ -1,9 +1,9 @@
 import React from "react";
-import Header from "../Header";
-import ChatIcon from "../../Assets/Images/icon-chat.png";
-import MoneyIcon from "../../Assets/Images/icon-money.png";
-import SecurityIcon from "../../Assets/Images/icon-security.png";
-import Footer from "../Footer";
+import Header from "../app/components/Header";
+import ChatIcon from "../assets/images/icon-chat.png";
+import MoneyIcon from "../assets/images/icon-money.png";
+import SecurityIcon from "../assets/images/icon-security.png";
+import Footer from "../app/components/Footer";
 
 function Home() {
     return (
