@@ -10,11 +10,19 @@ function login (email, password) {
         password
     }).then(response => {
         console.log(response);
-        return response;
+        return response?.data?.body?.token;
     }).catch(error => {
         console.log(error);
         return error;
         })
 }
 
-export default { login };
+function getInfos (token) {
+    return client.post(`/user/profile`, {
+        header: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
+export default { login, getInfos };
