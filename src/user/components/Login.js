@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import Header from "../app/components/Header";
-import Footer from "../app/components/Footer";
-import userService from "./userService";
+import { useHistory } from "react-router-dom";
+import Header from "../../app/components/Header";
+import Footer from "../../app/components/Footer";
+import userService from "../userService";
+import { useDispatch } from "react-redux";
+import { setToken } from "../userSlice";
+
 
 function Login() {
     const [email, setEmail] = useState('tony@stark.com');
     const [password, setPassword] = useState('password123');
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     const onEmailChange = (e) => {
         setEmail(e.target.value);
@@ -20,7 +25,11 @@ function Login() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        await userService.login(email, password);
+        const token = await userService.login(email, password);
+        if (token) {
+            dispatch(setToken(token));
+            history.push("/profile");
+        }
     }
 
     return (
@@ -46,9 +55,7 @@ function Login() {
                             <label htmlFor="remember-me">Remember me</label>
                         </div>
 
-                        {/*<Link to={`/user`}>*/}
-                            <button onClick={onSubmit} className="sign-in-button">Sign In</button>
-                        {/*</Link>*/}
+                        <button onClick={onSubmit} className="sign-in-button">Sign In</button>
                     </form>
                 </section>
             </main>
