@@ -1,11 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-import Logo from "../assets/images/argentBankLogo.png";
+import Logo from "../../assets/images/argentBankLogo.png";
+import { setToken } from "../userSlice";
+import { useDispatch } from "react-redux";
 
 function ProfileHeader() {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        dispatch(setToken(''));
+        history.push("/");
+    }
+
     return (
         <div className="main-nav">
             <Link to={`/`} className="main-nav-logo">
@@ -18,10 +29,10 @@ function ProfileHeader() {
                 <p>Tony</p>
             </Link>
 
-            <Link to={`/`} className="main-nav-item">
+            <div onClick={onSubmit} className="main-nav-item">
                 <FontAwesomeIcon icon={faSignOutAlt} />
                 <p>Sign Out</p>
-            </Link>
+            </div>
         </div>
     )
 }
