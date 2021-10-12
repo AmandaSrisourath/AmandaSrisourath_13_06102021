@@ -1,13 +1,13 @@
-import './App.css';
+import '../App.css';
 import React from "react";
 import {
     BrowserRouter as Router,
     Switch,
     Route,
 } from "react-router-dom";
-import Home from "./Components/Home/Home";
-import Login from "./Components/Login/Login";
-import Profile from "./Components/Profile/Profile";
+import Home from "../home/Home";
+import Login from "../user/components/Login";
+import Profile from "../user/components/Profile";
 
 function App() {
     return (
