@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProfileHeader from "./ProfileHeader";
 import Footer from "../../app/components/Footer";
+import userService from "../userService";
+import { useDispatch, useSelector } from "react-redux";
+import { setInfos } from "../userSlice";
 
 function Profile() {
+    const token = useSelector((state) => state.user.token);
+    const fullName = useSelector((state) => state.user.infos.firstName + ' ' + state.user.infos.lastName);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const getInfos = async () => {
+            const userData = await userService.getInfos(token);
+            const { email, firstName, lastName, id } = userData;
+            const infos = { email, firstName, lastName, id };
+            dispatch(setInfos(infos));
+        }
+        getInfos();
+    }, [token]);
+
     return (
         <div>
             <ProfileHeader />
             <main className="main bg-dark">
                 <div className="header">
-                    <h1>Welcome back<br/>Tony Jarvis!</h1>
+                    <h1>Welcome back<br/>{fullName}!</h1>
                     <button className="edit-button">Edit Name</button>
                 </div>
                 <h2 className="sr-only">Accounts</h2>
