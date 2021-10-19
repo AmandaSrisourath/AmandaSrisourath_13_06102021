@@ -4,16 +4,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import Logo from "../../assets/images/argentBankLogo.png";
-import { setToken } from "../userSlice";
-import { useDispatch } from "react-redux";
+import { setInfos, setToken } from "../userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function ProfileHeader() {
     const dispatch = useDispatch();
     const history = useHistory();
+    const firstName = useSelector((state) => state.user.infos.firstName);
 
-    const onSubmit = async (e) => {
-        e.preventDefault();
+    const onSignOut = () => {
         dispatch(setToken(''));
+        dispatch(setInfos({}));
         history.push("/");
     }
 
@@ -26,10 +27,10 @@ function ProfileHeader() {
 
             <Link to={`/profile`} className="main-nav-item">
                 <FontAwesomeIcon icon={faUserCircle} />
-                <p>Tony</p>
+                <p>{firstName}</p>
             </Link>
 
-            <div onClick={onSubmit} className="main-nav-item">
+            <div onClick={onSignOut} className="main-nav-item">
                 <FontAwesomeIcon icon={faSignOutAlt} />
                 <p>Sign Out</p>
             </div>
