@@ -7,8 +7,20 @@ import { setInfos } from "../userSlice";
 
 function Profile() {
     const token = useSelector((state) => state.user.token);
-    const fullName = useSelector((state) => state.user.infos.firstName + ' ' + state.user.infos.lastName);
+    const firstName = useSelector((state) => state.user.infos.firstName);
+    const lastName = useSelector((state) => state.user.infos.lastName);
+    const [firstNameForm, setFirstNameForm] = useState('');
+    const [lastNameForm, setLastNameForm] = useState('');
+    const [displayForm, setDisplayForm] = useState(false);
     const dispatch = useDispatch();
+
+    const onFirstNameChange = (e) => {
+        setFirstNameForm(e.target.value);
+    }
+
+    const onLastNameChange = (e) => {
+        setLastNameForm(e.target.value);
+    }
 
     useEffect(() => {
         const getInfos = async () => {
@@ -16,17 +28,44 @@ function Profile() {
             const { email, firstName, lastName, id } = userData;
             const infos = { email, firstName, lastName, id };
             dispatch(setInfos(infos));
+            setFirstNameForm(firstName);
+            setLastNameForm(lastName);
         }
         getInfos();
     }, [token]);
+
+    const onEdit = () => {
+        if (displayForm) return;
+        setDisplayForm(true);
+    }
 
     return (
         <div>
             <ProfileHeader />
             <main className="main bg-dark">
                 <div className="header">
-                    <h1>Welcome back<br/>{fullName}!</h1>
-                    <button className="edit-button">Edit Name</button>
+                    <h1>Welcome back</h1>
+
+                    {
+                        displayForm ?
+                            (
+                                <form>
+                                    <input type="text" onChange={onFirstNameChange} value={firstNameForm} placeholder={firstNameForm} />
+                                    <input type="text" onChange={onLastNameChange} value={lastNameForm} placeholder={lastNameForm} />
+                                    <div>
+                                        <button className="edit-button">Save</button>
+                                        <button className="edit-button">Cancel</button>
+                                    </div>
+                                </form>
+                            ) :
+                            (
+                                <div>
+                                    <h1>{firstName} {lastName}!</h1>
+                                    <button onClick={onEdit} className="edit-button">Edit Name</button>
+                                </div>
+                            )
+                    }
+
                 </div>
                 <h2 className="sr-only">Accounts</h2>
                 <section className="account">
