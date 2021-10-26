@@ -8,7 +8,6 @@ import userService from "../userService";
 import { useDispatch } from "react-redux";
 import { setToken } from "../userSlice";
 
-
 function Login() {
     const [email, setEmail] = useState('tony@stark.com');
     const [password, setPassword] = useState('password123');
@@ -24,11 +23,15 @@ function Login() {
     }
 
     const onSubmit = async (e) => {
-        e.preventDefault();
-        const token = await userService.login(email, password);
-        if (token) {
-            dispatch(setToken(token));
-            history.push("/profile");
+        try {
+            e.preventDefault();
+            const token = await userService.login(email, password);
+            if (token) {
+                dispatch(setToken(token));
+                history.push("/profile");
+            }
+        } catch (e) {
+            console.log(e);
         }
     }
 
