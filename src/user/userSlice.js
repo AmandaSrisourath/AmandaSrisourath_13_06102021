@@ -13,7 +13,10 @@ const userSlice = createSlice({
             state.token = action.payload;
         },
         setInfos: (state, action) => {
-            state.infos = action.payload;
+            state.infos = {
+                ...state.infos,
+                ...action.payload,
+            };
         }
     },
 });

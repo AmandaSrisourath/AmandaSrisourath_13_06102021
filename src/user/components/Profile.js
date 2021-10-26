@@ -23,20 +23,46 @@ function Profile() {
     }
 
     useEffect(() => {
-        const getInfos = async () => {
-            const userData = await userService.getInfos(token);
-            const { email, firstName, lastName, id } = userData;
-            const infos = { email, firstName, lastName, id };
-            dispatch(setInfos(infos));
-            setFirstNameForm(firstName);
-            setLastNameForm(lastName);
+        try {
+            const getInfos = async () => {
+                const userData = await userService.getInfos(token);
+                const { email, firstName, lastName, id } = userData;
+                const infos = { email, firstName, lastName, id };
+                dispatch(setInfos(infos));
+                setFirstNameForm(firstName);
+                setLastNameForm(lastName);
+            }
+            getInfos();
+        } catch (e) {
+            console.log(e);
         }
-        getInfos();
     }, [token]);
 
     const onEdit = () => {
-        if (displayForm) return;
-        setDisplayForm(true);
+        if (!displayForm) {
+            setDisplayForm(true);
+        }
+    }
+
+    const onSave = async (e) => {
+        try {
+            e.preventDefault();
+            const updateUserData = await userService.updateInfos(firstNameForm, lastNameForm, token);
+            const { firstName, lastName } = updateUserData;
+            const infosUpdate = { firstName, lastName };
+            dispatch(setInfos(infosUpdate));
+            if (displayForm) {
+                setDisplayForm(false);
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const onCancel = () => {
+        if (displayForm) {
+            setDisplayForm(false);
+        }
     }
 
     return (
@@ -45,7 +71,6 @@ function Profile() {
             <main className="main bg-dark">
                 <div className="header">
                     <h1>Welcome back</h1>
-
                     {
                         displayForm ?
                             (
@@ -53,8 +78,8 @@ function Profile() {
                                     <input type="text" onChange={onFirstNameChange} value={firstNameForm} placeholder={firstNameForm} />
                                     <input type="text" onChange={onLastNameChange} value={lastNameForm} placeholder={lastNameForm} />
                                     <div>
-                                        <button className="edit-button">Save</button>
-                                        <button className="edit-button">Cancel</button>
+                                        <button onClick={onSave} className="edit-button">Save</button>
+                                        <button onClick={onCancel} className="edit-button">Cancel</button>
                                     </div>
                                 </form>
                             ) :
@@ -65,7 +90,6 @@ function Profile() {
                                 </div>
                             )
                     }
-
                 </div>
                 <h2 className="sr-only">Accounts</h2>
                 <section className="account">
