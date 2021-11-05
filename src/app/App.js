@@ -5,6 +5,7 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute";
 import Home from "../home/Home";
 import Login from "../user/components/Login";
 import Profile from "../user/components/Profile";
@@ -21,9 +22,9 @@ function App() {
                     <Login />
                 </Route>
 
-                <Route path="/profile">
+                <PrivateRoute path="/profile">
                     <Profile />
-                </Route>
+                </PrivateRoute>
             </Switch>
         </Router>
     );
