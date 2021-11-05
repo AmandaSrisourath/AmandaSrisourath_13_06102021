@@ -24,23 +24,27 @@ function Header() {
                 <img className="main-nav-logo-image" src={Logo} alt="Argent Bank Logo" />
                 <h1 className="sr-only">Argent Bank</h1>
             </Link>
-            {token ?
-                <div className="nav">
-                    <Link to={`/profile`} className="main-nav-item">
-                        <FontAwesomeIcon icon={faUserCircle} />
-                        <p className="nav-text">{firstName}</p>
-                    </Link>
+            {
+                token ?
+                    (
+                        <div className="nav">
+                            <Link to={`/profile`} className="main-nav-item">
+                                <FontAwesomeIcon icon={faUserCircle} />
+                                <p className="nav-text">{firstName}</p>
+                            </Link>
 
-                    <div onClick={onSignOut} className="main-nav-item">
-                        <FontAwesomeIcon icon={faSignOutAlt} />
-                        <p className="nav-text">Sign Out</p>
-                    </div>
-                </div>
-                :
-                <Link to={`/login`} className="main-nav-item">
-                    <FontAwesomeIcon icon={faUserCircle} />
-                    <p className="nav-text">Sign In</p>
-                </Link>
+                            <div onClick={onSignOut} className="main-nav-item">
+                                <FontAwesomeIcon icon={faSignOutAlt} />
+                                <p className="nav-text">Sign Out</p>
+                            </div>
+                        </div>
+                    ) :
+                    (
+                        <Link to={`/login`} className="main-nav-item">
+                            <FontAwesomeIcon icon={faUserCircle} />
+                            <p className="nav-text">Sign In</p>
+                        </Link>
+                    )
             }
         </div>
     )
