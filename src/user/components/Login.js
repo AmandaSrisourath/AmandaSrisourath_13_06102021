@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setToken } from "../userSlice";
 import Header from "../../app/components/Header";
 import Footer from "../../app/components/Footer";
 import userService from "../userService";
-import { useDispatch } from "react-redux";
-import { setToken } from "../userSlice";
 
 function Login() {
     const [email, setEmail] = useState('tony@stark.com');

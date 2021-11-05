@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import ProfileHeader from "./ProfileHeader";
-import Footer from "../../app/components/Footer";
-import userService from "../userService";
 import { useDispatch, useSelector } from "react-redux";
 import { setInfos } from "../userSlice";
+import Header from "../../app/components/Header";
+import Footer from "../../app/components/Footer";
+import userService from "../userService";
 
 function Profile() {
     const token = useSelector((state) => state.user.token);
@@ -67,7 +67,7 @@ function Profile() {
 
     return (
         <div>
-            <ProfileHeader />
+            <Header />
             <main className="main bg-dark">
                 <div className="header">
                     <h1>Welcome back</h1>
